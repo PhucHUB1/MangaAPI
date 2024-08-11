@@ -1,9 +1,9 @@
 services:
   mysql:
-    image: 'mysql:latest'
+    image: 'mysql'
     environment:
-      - 'MYSQL_DATABASE=manga_api'
-      - 'MYSQL_PASSWORD=123456'
-      - 'MYSQL_USER=root'
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=manga_api
+
     ports:
-      - '3306-3306'
+      - "3306:3306"

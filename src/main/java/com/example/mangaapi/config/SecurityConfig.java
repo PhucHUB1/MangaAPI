@@ -27,7 +27,7 @@ public class SecurityConfig {
     @Value("${jwt.signerKey}")
     private String signerKey;
 
-    private final String[] PUBLIC_ENDPOINTS = {"/create-user",
+    private final String[] PUBLIC_ENDPOINTS = {"/api/user/create-user",
             "/auth/log-in", "/auth/introspect"};
 
     @Bean

@@ -7,7 +7,6 @@ import com.example.mangaapi.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
-
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
@@ -15,5 +14,5 @@ public interface UserMapper {
 
     UserResponse toUserResponse(User user);
 
-    void updateUser(@MappingTarget User user,UserUpdateRequest request );
+    void updateUser(@MappingTarget User user, UserUpdateRequest request);
 }
