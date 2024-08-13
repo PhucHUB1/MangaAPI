@@ -27,8 +27,8 @@ public class SecurityConfig {
     @Value("${jwt.signerKey}")
     private String signerKey;
 
-    private final String[] PUBLIC_ENDPOINTS = {"/api/user/create-user",
-            "/auth/log-in", "/auth/introspect"};
+    private final String[] PUBLIC_ENDPOINTS = {"/users/create-user",
+            "/auth/log-in", "/auth/introspect" };
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -40,6 +40,7 @@ public class SecurityConfig {
                 oauth2.jwt(jwtConfigurer ->
                         jwtConfigurer.decoder(jwtDecoder())
                                 .jwtAuthenticationConverter(jwtAuthenticationConverter()))
+                        .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
 
         );
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
