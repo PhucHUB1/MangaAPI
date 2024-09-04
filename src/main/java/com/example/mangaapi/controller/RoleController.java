@@ -3,6 +3,7 @@ package com.example.mangaapi.controller;
 import com.example.mangaapi.dtos.request.ApiResponse;
 import com.example.mangaapi.dtos.request.RoleRequest;
 import com.example.mangaapi.dtos.response.RoleResponse;
+
 import com.example.mangaapi.service.RoleService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +11,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/roles")
@@ -29,8 +30,8 @@ public class RoleController {
     }
 
     @GetMapping
-    ApiResponse<List<RoleResponse>> findAllRoles() {
-        return ApiResponse.<List<RoleResponse>>builder()
+    ApiResponse<Set<RoleResponse>> findAllRoles() {
+        return ApiResponse.<Set<RoleResponse>>builder()
                 .result(roleService.getAllRoles())
                 .build();
     }

@@ -19,4 +19,6 @@ public class UserUpdateRequest {
     String lastName;
     @Email
     String email;
+
+    int RoleId;
 }

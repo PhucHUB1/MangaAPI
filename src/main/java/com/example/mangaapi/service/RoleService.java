@@ -11,8 +11,9 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -24,18 +25,18 @@ public class RoleService {
     RoleMapper roleMapper;
 
     public RoleResponse createRole(RoleRequest request){
-        var role = roleMapper.toRole(request);
+        var role = roleMapper.INSTANCE.RoleRequestToRole(request);
 
-       var permission = permissionRepository.findAllById(request.getPermissions());
-       role.setPermissions(new HashSet<>(permission));
+        var permissions = permissionRepository.findAllById(Collections.singleton(request.getPermissionId()));
+        role.setPermissions(new HashSet<>(permissions));
 
-       role = roleRepository.save(role);
-      return roleMapper.toRoleResponse(role);
+        role = roleRepository.save(role);
+        return roleMapper.INSTANCE.roleToRoleResponse(role);
     }
 
-    public List<RoleResponse> getAllRoles(){
-        var roles = roleRepository.findAll();
-        return roles.stream().map(roleMapper::toRoleResponse).toList();
+    public Set<RoleResponse> getAllRoles() {
+        var roles = new HashSet<>(roleRepository.findAll());
+        return roleMapper.INSTANCE.rolesToRoleResponses(roles);
     }
 
     public void deleteRole(int roleId){

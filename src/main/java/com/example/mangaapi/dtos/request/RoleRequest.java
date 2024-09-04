@@ -3,7 +3,6 @@ package com.example.mangaapi.dtos.request;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.Set;
 
 @Getter
 @Setter
@@ -14,5 +13,5 @@ import java.util.Set;
 public class RoleRequest {
     String name;
     String description;
-    Set<Integer> permissions;
+    int permissionId;
 }

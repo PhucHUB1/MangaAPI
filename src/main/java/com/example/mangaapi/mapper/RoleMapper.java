@@ -5,11 +5,20 @@ import com.example.mangaapi.dtos.response.RoleResponse;
 import com.example.mangaapi.entity.Role;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
+
+import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface RoleMapper {
-    @Mapping(target ="permissions",ignore = true)
-    Role toRole(RoleRequest request);
+    RoleMapper INSTANCE = Mappers.getMapper(RoleMapper.class);
 
-    RoleResponse toRoleResponse(Role role);
+
+    Role RoleRequestToRole(RoleRequest roleRequest);
+
+    RoleResponse roleToRoleResponse(Role role);
+
+    Set<RoleResponse> rolesToRoleResponses(Set<Role> roles);
+
+
 }

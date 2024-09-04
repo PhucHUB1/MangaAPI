@@ -2,7 +2,6 @@ package com.example.mangaapi.service;
 
 import com.example.mangaapi.dtos.request.PermissionRequest;
 import com.example.mangaapi.dtos.response.PermissionResponse;
-import com.example.mangaapi.entity.Permission;
 import com.example.mangaapi.mapper.PermissionMapper;
 import com.example.mangaapi.repository.PermissionRepository;
 import lombok.AccessLevel;
@@ -22,14 +21,14 @@ public class PermissionService {
     PermissionMapper permissionMapper;
 
    public PermissionResponse create(PermissionRequest request){
-        Permission permission = permissionMapper.toPermission(request);
-        permission = permissionRepository.save(permission);
-        return permissionMapper.toPermissionResponse(permission);
-    }
+       var permission = permissionMapper.INSTANCE.permissionRequestToPermission(request);
+       permission = permissionRepository.save(permission);
+       return permissionMapper.INSTANCE.permissionToPermissionResponse(permission);
+   }
 
     public List<PermissionResponse> getAll(){
         var permissions = permissionRepository.findAll();
-        return permissions.stream().map(permissionMapper::toPermissionResponse).toList();
+        return permissions.stream().map(permissionMapper::permissionToPermissionResponse).toList();
     }
 
     public void delete(int permissionId){

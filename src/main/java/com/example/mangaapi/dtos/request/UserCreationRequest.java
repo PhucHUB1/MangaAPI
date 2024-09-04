@@ -23,4 +23,5 @@ public class UserCreationRequest {
     @Email
     String email;
 
+    int roleId;
 }

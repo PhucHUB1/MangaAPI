@@ -5,14 +5,16 @@ import com.example.mangaapi.dtos.request.UserUpdateRequest;
 import com.example.mangaapi.dtos.response.UserResponse;
 import com.example.mangaapi.entity.User;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    User toUser(UserCreationRequest request);
+    @Mapping(source = "roleId", target = "id")
+    User UserRequestToUser(UserCreationRequest request);
 
-    UserResponse toUserResponse(User user);
+    UserResponse UserToUserResponse(User user);
 
     void updateUser(@MappingTarget User user, UserUpdateRequest request);
 }

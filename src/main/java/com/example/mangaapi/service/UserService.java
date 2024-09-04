@@ -35,14 +35,14 @@ public class UserService {
         if(userRepository.existsByUsername(request.getUsername())) {
           throw new AppException(ErrorCode.USER_EXISTS);
       }
-        User user = userMapper.toUser(request);
+        User user = userMapper.UserRequestToUser(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         HashSet<String> roles = new HashSet<>();
         roles.add(Role.USER.name());
         //user.setRoles(roles);
 
-        return userMapper.toUserResponse(userRepository.save(user));
+        return userMapper.UserToUserResponse(userRepository.save(user));
     }
 
     public UserResponse getMyInfo(){
@@ -52,18 +52,18 @@ public class UserService {
        User user = userRepository.findByUsername(name).orElseThrow(
               ()-> new AppException(ErrorCode.USER_NOT_EXISTED));
 
-       return userMapper.toUserResponse(user);
+       return userMapper.UserToUserResponse(user);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     public List<UserResponse> getAllUsers() {
         log.info("In method get Users");
-        return userRepository.findAll().stream().map(userMapper::toUserResponse).toList();
+        return userRepository.findAll().stream().map(userMapper::UserToUserResponse).toList();
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     public UserResponse getUser(String id) {
-        return userMapper.toUserResponse(
+        return userMapper.UserToUserResponse(
                 userRepository.findById(id).orElseThrow(() ->
                         new AppException(ErrorCode.USER_NOT_EXISTED)));
     }
@@ -73,7 +73,7 @@ public class UserService {
                 new AppException(ErrorCode.USER_NOT_EXISTED));
 
         userMapper.updateUser(user,request);
-        return userMapper.toUserResponse(userRepository.save(user));
+        return userMapper.UserToUserResponse(userRepository.save(user));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
